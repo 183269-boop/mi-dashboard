@@ -1,572 +1,415 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Mi Sistema</title>
+<title>Dashboard de Transporte</title>
 
 <style>
-
-/* =========================
-   CONFIGURACIÓN GENERAL
-========================= */
-
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f1f5f9;
-    color:#1e293b;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    color: #1f2937;
 }
 
 /* =========================
-   LOGO
+   PANTALLA INICIAL
 ========================= */
 
-.logo-imagen{
-    width:120px;
-    height:120px;
-    object-fit:contain;
-    display:block;
-    margin:0 auto 20px auto;
+.pantalla-inicial {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f4f6f8, #e7edf2);
+    padding: 20px;
 }
 
-/* =========================
-   PANTALLA DE INICIO
-========================= */
-
-#loginInicio{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#0f3b82,#2563eb,#38bdf8);
-    padding:20px;
+.inicio-card {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    border-radius: 25px;
+    padding: 45px 35px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
 }
 
-.inicio-card{
-    background:white;
-    width:100%;
-    max-width:520px;
-    padding:45px 35px;
-    border-radius:24px;
-    text-align:center;
-    box-shadow:0 20px 50px rgba(0,0,0,.20);
+.logo-imagen {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 20px;
 }
 
-.inicio-card h1{
-    margin:0;
-    color:#0f3b82;
-    font-size:28px;
-    letter-spacing:.5px;
+.inicio-card h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #17365d;
 }
 
-.inicio-card p{
-    color:#64748b;
-    margin:10px 0 30px;
+.inicio-card p {
+    color: #6b7280;
+    margin-bottom: 30px;
 }
 
-.frase{
-    margin-top:28px;
-    font-family:Georgia, "Times New Roman", serif;
-    font-size:16px;
-    font-style:italic;
-    color:#475569;
-    line-height:1.5;
+.botones-inicio {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.botones-acceso{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
+.btn-principal {
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #17365d;
+    color: white;
+    transition: 0.2s;
 }
 
-.btn-acceso{
-    border:none;
-    padding:18px 10px;
-    border-radius:12px;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.2s;
+.btn-principal:hover {
+    transform: translateY(-2px);
+    opacity: 0.92;
 }
 
-.btn-cliente{
-    background:#eff6ff;
-    color:#1d4ed8;
-    border:2px solid #2563eb;
+.btn-secundario {
+    border: 2px solid #17365d;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    background: white;
+    color: #17365d;
 }
 
-.btn-empresa{
-    background:#2563eb;
-    color:white;
-}
-
-.btn-acceso:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 18px rgba(0,0,0,.12);
+.btn-secundario:hover {
+    background: #f0f4f8;
 }
 
 /* =========================
    LOGIN
 ========================= */
 
-.login-pantalla{
-    display:none;
-    min-height:100vh;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#0f3b82,#2563eb,#38bdf8);
-    padding:20px;
+.login-pantalla {
+    min-height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #f4f6f8, #e7edf2);
 }
 
-.login-card{
-    background:white;
-    width:100%;
-    max-width:410px;
-    padding:38px 32px;
-    border-radius:22px;
-    box-shadow:0 20px 50px rgba(0,0,0,.22);
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    border-radius: 25px;
+    padding: 35px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    text-align: center;
 }
 
-.login-logo{
-    width:100px;
-    height:100px;
-    object-fit:contain;
-    display:block;
-    margin:0 auto 18px;
+.login-logo {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    margin-bottom: 15px;
 }
 
-.login-card h2{
-    text-align:center;
-    color:#0f3b82;
-    margin:0;
-    font-size:25px;
+.frase-login {
+    font-family: Georgia, serif;
+    font-style: italic;
+    color: #17365d;
+    font-size: 18px;
+    line-height: 1.5;
+    margin: 5px 0 25px;
 }
 
-.login-subtitulo{
-    text-align:center;
-    color:#64748b;
-    font-size:14px;
-    margin:8px 0 25px;
+.login-titulo {
+    font-size: 25px;
+    color: #17365d;
+    margin-bottom: 25px;
 }
 
-.campo{
-    margin-bottom:18px;
+.campo {
+    text-align: left;
+    margin-bottom: 18px;
 }
 
-.campo label{
-    display:block;
-    font-size:14px;
-    font-weight:bold;
-    margin-bottom:7px;
-    color:#334155;
+.campo label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+    color: #374151;
 }
 
-.campo input{
-    width:100%;
-    padding:13px;
-    border:1px solid #cbd5e1;
-    border-radius:8px;
-    font-size:15px;
-    outline:none;
+.campo input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
 }
 
-.campo input:focus{
-    border-color:#2563eb;
-    box-shadow:0 0 0 3px #dbeafe;
+.campo input:focus {
+    border-color: #17365d;
 }
 
-.btn-ingresar{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:9px;
-    background:#2563eb;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    font-size:15px;
-    transition:.2s;
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #17365d;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
 }
 
-.btn-ingresar:hover{
-    background:#1d4ed8;
-    transform:translateY(-1px);
+.btn-volver {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    background: white;
+    color: #374151;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 12px;
 }
 
-.btn-volver{
-    width:100%;
-    margin-top:10px;
-    padding:12px;
-    border:none;
-    background:#f1f5f9;
-    color:#475569;
-    border-radius:9px;
-    cursor:pointer;
-}
-
-.btn-volver:hover{
-    background:#e2e8f0;
-}
-
-.error{
-    display:none;
-    background:#fee2e2;
-    color:#b91c1c;
-    padding:10px;
-    border-radius:8px;
-    margin-bottom:15px;
-    text-align:center;
-    font-size:14px;
-}
-
-.frase-login{
-    margin-top:25px;
-    text-align:center;
-    font-family:Georgia, "Times New Roman", serif;
-    font-style:italic;
-    font-size:15px;
-    color:#64748b;
-    line-height:1.5;
+.mensaje-error {
+    display: none;
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 14px;
 }
 
 /* =========================
    SISTEMA
 ========================= */
 
-#sistema{
-    display:none;
-    min-height:100vh;
+#sistema {
+    display: none;
 }
 
-/* HEADER */
-
-.header{
-    background:#0f3b82;
-    color:white;
-    height:70px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 25px;
-    box-shadow:0 2px 10px rgba(0,0,0,.15);
+.header {
+    background: #17365d;
+    color: white;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.header-titulo{
-    font-size:20px;
-    font-weight:bold;
+.header h1 {
+    font-size: 22px;
 }
 
-.header-derecha{
-    display:flex;
-    align-items:center;
-    gap:15px;
+.btn-salir {
+    background: white;
+    color: #17365d;
+    border: none;
+    padding: 9px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.usuario{
-    font-size:13px;
-    opacity:.9;
+.contenedor {
+    padding: 25px;
+    max-width: 1400px;
+    margin: auto;
 }
 
-.btn-salir{
-    border:1px solid rgba(255,255,255,.4);
-    background:transparent;
-    color:white;
-    padding:8px 14px;
-    border-radius:7px;
-    cursor:pointer;
+.vista {
+    display: none;
 }
 
-/* CONTENIDO */
-
-.contenido{
-    padding:25px;
-    max-width:1400px;
-    margin:auto;
+.vista.activa {
+    display: block;
 }
 
-.vista{
-    display:none;
+.titulo-vista {
+    margin-bottom: 20px;
+    color: #17365d;
 }
 
-.vista.activa{
-    display:block;
+.kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px;
+    margin-bottom: 25px;
 }
 
-.titulo-pagina{
-    margin-bottom:20px;
+.kpi {
+    background: white;
+    border-radius: 15px;
+    padding: 22px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.07);
 }
 
-.titulo-pagina h2{
-    margin:0;
-    color:#0f3b82;
+.kpi h3 {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
-.titulo-pagina p{
-    margin-top:5px;
-    color:#64748b;
+.kpi strong {
+    font-size: 30px;
+    color: #17365d;
 }
 
-/* =========================
-   FILTROS
-========================= */
-
-.filtros{
-    background:white;
-    padding:20px;
-    border-radius:14px;
-    box-shadow:0 2px 8px rgba(0,0,0,.06);
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-    margin-bottom:20px;
+.filtros {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
 }
 
-.filtro label{
-    display:block;
-    font-size:12px;
-    font-weight:bold;
-    color:#475569;
-    margin-bottom:6px;
+.filtros select,
+.filtros input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
 }
 
-.filtro select{
-    width:100%;
-    padding:11px;
-    border:1px solid #93c5fd;
-    border-radius:8px;
-    background:#eff6ff;
-    color:#1d4ed8;
-    font-size:14px;
-    cursor:pointer;
-    font-weight:bold;
+.btn-filtrar {
+    background: #17365d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 11px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-/* =========================
-   KPI
-========================= */
-
-.kpis{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-    margin-bottom:20px;
+.tabla-contenedor {
+    background: white;
+    border-radius: 15px;
+    overflow-x: auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.07);
 }
 
-.kpi{
-    background:white;
-    padding:20px;
-    border-radius:14px;
-    box-shadow:0 2px 8px rgba(0,0,0,.06);
-    border-left:5px solid #2563eb;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.kpi-titulo{
-    color:#64748b;
-    font-size:13px;
+th {
+    background: #17365d;
+    color: white;
+    padding: 13px;
+    text-align: left;
 }
 
-.kpi-valor{
-    margin-top:8px;
-    font-size:25px;
-    font-weight:bold;
-    color:#0f3b82;
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-/* =========================
-   TABLA
-========================= */
-
-.tabla-contenedor{
-    background:white;
-    border-radius:14px;
-    box-shadow:0 2px 8px rgba(0,0,0,.06);
-    overflow:auto;
+tr:hover {
+    background: #f9fafb;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:900px;
+.menu {
+    background: white;
+    border-top: 1px solid #ddd;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
 }
 
-thead{
-    background:#0f3b82;
-    color:white;
+.menu button {
+    border: none;
+    background: #f3f4f6;
+    color: #17365d;
+    padding: 11px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-th{
-    padding:12px;
-    text-align:left;
-    font-size:12px;
+.menu button:hover {
+    background: #dfe7ef;
 }
 
-td{
-    padding:11px;
-    border-bottom:1px solid #e2e8f0;
-    font-size:13px;
-}
-
-tbody tr:hover{
-    background:#f8fafc;
-}
-
-/* =========================
-   SEGUIMIENTO
-========================= */
-
-.seguimiento-card{
-    background:white;
-    min-height:450px;
-    border-radius:14px;
-    box-shadow:0 2px 8px rgba(0,0,0,.06);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
-
-.seguimiento-icon{
-    font-size:60px;
-}
-
-.seguimiento-card h3{
-    color:#0f3b82;
-}
-
-/* =========================
-   REPORTES
-========================= */
-
-.reportes-card{
-    background:white;
-    padding:30px;
-    border-radius:14px;
-    box-shadow:0 2px 8px rgba(0,0,0,.06);
-}
-
-.btn-reporte{
-    background:#2563eb;
-    color:white;
-    border:none;
-    padding:12px 18px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-/* =========================
-   NAVEGACIÓN
-========================= */
-
-.nav-inferior{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    height:65px;
-    background:white;
-    border-top:1px solid #e2e8f0;
-    display:flex;
-    justify-content:center;
-    box-shadow:0 -3px 12px rgba(0,0,0,.08);
-    z-index:100;
-}
-
-.nav-btn{
-    width:180px;
-    border:none;
-    background:white;
-    color:#64748b;
-    cursor:pointer;
-    font-size:12px;
-    font-weight:bold;
-}
-
-.nav-btn span{
-    display:block;
-    font-size:20px;
-    margin-bottom:3px;
-}
-
-.nav-btn.activo{
-    color:#2563eb;
-    border-top:3px solid #2563eb;
+.mensaje-vacio {
+    padding: 30px;
+    text-align: center;
+    color: #6b7280;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media(max-width:800px){
+@media(max-width:600px) {
 
-    .botones-acceso{
-        grid-template-columns:1fr;
+    .inicio-card,
+    .login-card {
+        padding: 28px 22px;
     }
 
-    .filtros{
-        grid-template-columns:1fr;
+    .logo-imagen {
+        width: 125px;
+        height: 125px;
     }
 
-    .kpis{
-        grid-template-columns:repeat(2,1fr);
+    .header {
+        padding: 15px;
     }
 
-    .header{
-        padding:0 15px;
+    .header h1 {
+        font-size: 18px;
     }
 
-    .usuario{
-        display:none;
+    .contenedor {
+        padding: 15px;
+        padding-bottom: 80px;
     }
 
-    .contenido{
-        padding:15px;
-        padding-bottom:85px;
+    .menu {
+        overflow-x: auto;
+        justify-content: flex-start;
     }
-
-    .header-titulo{
-        font-size:17px;
-    }
-
-    .nav-btn{
-        width:33.33%;
-    }
-
 }
-
-@media(max-width:450px){
-
-    .kpis{
-        grid-template-columns:1fr;
-    }
-
-    .inicio-card{
-        padding:35px 20px;
-    }
-
-    .login-card{
-        padding:32px 22px;
-    }
-
-}
-
 </style>
 </head>
 
 <body>
 
-
 <!-- =====================================================
      PANTALLA INICIAL
 ===================================================== -->
 
-<div id="loginInicio">
+<div id="inicio" class="pantalla-inicial">
 
     <div class="inicio-card">
 
@@ -576,29 +419,26 @@ tbody tr:hover{
             class="logo-imagen"
         >
 
-        <h1>MI SISTEMA</h1>
+        <h1>Portal de Transporte</h1>
 
-        <p>Seleccione el tipo de acceso</p>
+        <p>
+            Selecciona el tipo de acceso para continuar
+        </p>
 
-        <div class="botones-acceso">
+        <div class="botones-inicio">
 
             <button
-                class="btn-acceso btn-cliente"
+                class="btn-principal"
                 onclick="mostrarLoginCliente()">
-                👤 SOY CLIENTE
+                SOY CLIENTE
             </button>
 
             <button
-                class="btn-acceso btn-empresa"
+                class="btn-secundario"
                 onclick="mostrarLoginEmpresa()">
-                🏢 EMPRESA
+                EMPRESA
             </button>
 
-        </div>
-
-        <div class="frase">
-            “Movemos tu carga con seguridad,
-            confianza y compromiso.”
         </div>
 
     </div>
@@ -620,44 +460,44 @@ tbody tr:hover{
             class="login-logo"
         >
 
-        <h2>Acceso Cliente</h2>
-
-        <div class="login-subtitulo">
-            Ingrese sus credenciales para continuar
+        <div class="frase-login">
+            “Movemos tu carga con seguridad, confianza y compromiso.”
         </div>
 
-        <div id="mensajeErrorCliente" class="error">
-            Usuario o contraseña incorrectos
-        </div>
+        <h2 class="login-titulo">
+            Acceso Cliente
+        </h2>
 
         <div class="campo">
 
-            <label>Usuario</label>
+            <label for="usuarioCliente">
+                Usuario
+            </label>
 
             <input
                 type="text"
                 id="usuarioCliente"
                 placeholder="Ingrese su usuario"
-                autocomplete="username"
             >
 
         </div>
 
         <div class="campo">
 
-            <label>Contraseña</label>
+            <label for="passwordCliente">
+                Contraseña
+            </label>
 
             <input
                 type="password"
                 id="passwordCliente"
                 placeholder="Ingrese su contraseña"
-                autocomplete="current-password"
             >
 
         </div>
 
         <button
-            class="btn-ingresar"
+            class="btn-login"
             onclick="validarCliente()">
             INGRESAR
         </button>
@@ -665,12 +505,13 @@ tbody tr:hover{
         <button
             class="btn-volver"
             onclick="volverInicio()">
-            ← Volver
+            VOLVER
         </button>
 
-        <div class="frase-login">
-            “Movemos tu carga con seguridad,
-            confianza y compromiso.”
+        <div
+            id="mensajeErrorCliente"
+            class="mensaje-error">
+            Usuario o contraseña incorrectos.
         </div>
 
     </div>
@@ -692,44 +533,44 @@ tbody tr:hover{
             class="login-logo"
         >
 
-        <h2>Acceso Empresa</h2>
-
-        <div class="login-subtitulo">
-            Ingrese sus credenciales para continuar
+        <div class="frase-login">
+            “Movemos tu carga con seguridad, confianza y compromiso.”
         </div>
 
-        <div id="mensajeErrorEmpresa" class="error">
-            Usuario o contraseña incorrectos
-        </div>
+        <h2 class="login-titulo">
+            Acceso Empresa
+        </h2>
 
         <div class="campo">
 
-            <label>Usuario</label>
+            <label for="usuarioEmpresa">
+                Usuario
+            </label>
 
             <input
                 type="text"
                 id="usuarioEmpresa"
                 placeholder="Ingrese su usuario"
-                autocomplete="username"
             >
 
         </div>
 
         <div class="campo">
 
-            <label>Contraseña</label>
+            <label for="passwordEmpresa">
+                Contraseña
+            </label>
 
             <input
                 type="password"
                 id="passwordEmpresa"
                 placeholder="Ingrese su contraseña"
-                autocomplete="current-password"
             >
 
         </div>
 
         <button
-            class="btn-ingresar"
+            class="btn-login"
             onclick="validarEmpresa()">
             INGRESAR
         </button>
@@ -737,12 +578,13 @@ tbody tr:hover{
         <button
             class="btn-volver"
             onclick="volverInicio()">
-            ← Volver
+            VOLVER
         </button>
 
-        <div class="frase-login">
-            “Movemos tu carga con seguridad,
-            confianza y compromiso.”
+        <div
+            id="mensajeErrorEmpresa"
+            class="mensaje-error">
+            Usuario o contraseña incorrectos.
         </div>
 
     </div>
@@ -751,169 +593,80 @@ tbody tr:hover{
 
 
 <!-- =====================================================
-     SISTEMA
+     SISTEMA / DASHBOARD
 ===================================================== -->
 
 <div id="sistema">
 
-    <header class="header">
+    <div class="header">
 
-        <div class="header-titulo">
-            MI SISTEMA
-        </div>
+        <h1>
+            Dashboard de Transporte
+        </h1>
 
-        <div class="header-derecha">
+        <button
+            class="btn-salir"
+            onclick="cerrarSesion()">
+            CERRAR SESIÓN
+        </button>
 
-            <span id="tipoUsuario" class="usuario">
-                Empresa
-            </span>
-
-            <button
-                class="btn-salir"
-                onclick="cerrarSesion()">
-                Salir
-            </button>
-
-        </div>
-
-    </header>
+    </div>
 
 
-    <main class="contenido">
-
+    <div class="contenedor">
 
         <!-- DASHBOARD -->
 
         <section
-            id="dashboard"
+            id="vistaDashboard"
             class="vista activa">
 
-            <div class="titulo-pagina">
+            <h2 class="titulo-vista">
+                Resumen
+            </h2>
 
-                <h2>Dashboard</h2>
+            <div class="kpis">
 
-                <p>
-                    Resumen general de documentos y movimientos
-                </p>
+                <div class="kpi">
+                    <h3>Total de registros</h3>
+                    <strong id="kpiTotal">0</strong>
+                </div>
+
+                <div class="kpi">
+                    <h3>Entregados</h3>
+                    <strong id="kpiEntregados">0</strong>
+                </div>
+
+                <div class="kpi">
+                    <h3>En tránsito</h3>
+                    <strong id="kpiTransito">0</strong>
+                </div>
+
+                <div class="kpi">
+                    <h3>Pendientes</h3>
+                    <strong id="kpiPendientes">0</strong>
+                </div>
 
             </div>
 
 
             <div class="filtros">
 
-                <div class="filtro">
+                <select id="filtroEstado">
+                    <option value="">Todos los estados</option>
+                </select>
 
-                    <label>PROVEEDOR</label>
+                <input
+                    type="text"
+                    id="filtroTexto"
+                    placeholder="Buscar..."
+                >
 
-                    <select
-                        id="filtroProveedor"
-                        onchange="aplicarFiltros()">
-
-                        <option value="">
-                            Todos
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="filtro">
-
-                    <label>CLIENTE</label>
-
-                    <select
-                        id="filtroCliente"
-                        onchange="aplicarFiltros()">
-
-                        <option value="">
-                            Todos
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="filtro">
-
-                    <label>ESTADO</label>
-
-                    <select
-                        id="filtroEstado"
-                        onchange="aplicarFiltros()">
-
-                        <option value="">
-                            Todos
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-            <div class="kpis">
-
-                <div class="kpi">
-
-                    <div class="kpi-titulo">
-                        DOCUMENTOS
-                    </div>
-
-                    <div
-                        id="totalDocumentos"
-                        class="kpi-valor">
-                        0
-                    </div>
-
-                </div>
-
-
-                <div class="kpi">
-
-                    <div class="kpi-titulo">
-                        IMPORTE TOTAL
-                    </div>
-
-                    <div
-                        id="totalImporte"
-                        class="kpi-valor">
-                        S/ 0.00
-                    </div>
-
-                </div>
-
-
-                <div class="kpi">
-
-                    <div class="kpi-titulo">
-                        PROVEEDORES
-                    </div>
-
-                    <div
-                        id="totalProveedores"
-                        class="kpi-valor">
-                        0
-                    </div>
-
-                </div>
-
-
-                <div class="kpi">
-
-                    <div class="kpi-titulo">
-                        CLIENTES
-                    </div>
-
-                    <div
-                        id="totalClientes"
-                        class="kpi-valor">
-                        0
-                    </div>
-
-                </div>
+                <button
+                    class="btn-filtrar"
+                    onclick="aplicarFiltros()">
+                    APLICAR FILTROS
+                </button>
 
             </div>
 
@@ -922,29 +675,20 @@ tbody tr:hover{
 
                 <table>
 
-                    <thead>
-
-                        <tr>
-
-                            <th>Documento</th>
-                            <th>Movimiento</th>
-                            <th>Tipo</th>
-                            <th>Fecha</th>
-                            <th>Moneda</th>
-                            <th>Importe</th>
-                            <th>Estado</th>
-                            <th>Almacén</th>
-                            <th>Cliente</th>
-                            <th>Proveedor</th>
-                            <th>Factura</th>
-
-                        </tr>
-
+                    <thead id="cabeceraTabla">
                     </thead>
 
-                    <tbody id="tablaDatos"></tbody>
+                    <tbody id="cuerpoTabla">
+                    </tbody>
 
                 </table>
+
+                <div
+                    id="mensajeVacio"
+                    class="mensaje-vacio"
+                    style="display:none;">
+                    No se encontraron registros.
+                </div>
 
             </div>
 
@@ -954,38 +698,23 @@ tbody tr:hover{
         <!-- SEGUIMIENTO -->
 
         <section
-            id="seguimiento"
+            id="vistaSeguimiento"
             class="vista">
 
-            <div class="titulo-pagina">
+            <h2 class="titulo-vista">
+                Seguimiento de carga
+            </h2>
 
-                <h2>Seguimiento</h2>
+            <div class="kpi">
 
-                <p>
-                    Seguimiento de vehículos en tiempo real
+                <h3>
+                    Consulta de seguimiento
+                </h3>
+
+                <p style="margin-top:10px;">
+                    Aquí podrás consultar el estado y ubicación
+                    de tu carga.
                 </p>
-
-            </div>
-
-
-            <div class="seguimiento-card">
-
-                <div>
-
-                    <div class="seguimiento-icon">
-                        🚛
-                    </div>
-
-                    <h3>
-                        SEGUIMIENTO NAVITEL
-                    </h3>
-
-                    <p>
-                        Aquí integraremos el mapa y
-                        seguimiento de vehículos.
-                    </p>
-
-                </div>
 
             </div>
 
@@ -995,79 +724,47 @@ tbody tr:hover{
         <!-- REPORTES -->
 
         <section
-            id="reportes"
+            id="vistaReportes"
             class="vista">
 
-            <div class="titulo-pagina">
+            <h2 class="titulo-vista">
+                Reportes
+            </h2>
 
-                <h2>Reportes</h2>
-
-                <p>
-                    Generación y consulta de reportes
-                </p>
-
-            </div>
-
-
-            <div class="reportes-card">
+            <div class="kpi">
 
                 <h3>
                     Reportes
                 </h3>
 
-                <p>
-                    Esta sección será desarrollada
-                    posteriormente.
+                <p style="margin-top:10px;">
+                    Módulo de reportes disponible próximamente.
                 </p>
-
-                <button class="btn-reporte">
-                    Generar reporte
-                </button>
 
             </div>
 
         </section>
 
-    </main>
+    </div>
 
 
-    <!-- NAVEGACIÓN -->
+    <!-- MENÚ -->
 
-    <nav class="nav-inferior">
+    <div class="menu">
 
-        <button
-            id="btnDashboard"
-            class="nav-btn activo"
-            onclick="mostrarVista('dashboard')">
-
-            <span>📊</span>
-            DASHBOARD
-
+        <button onclick="mostrarVista('Dashboard')">
+            Dashboard
         </button>
 
-
-        <button
-            id="btnSeguimiento"
-            class="nav-btn"
-            onclick="mostrarVista('seguimiento')">
-
-            <span>🚛</span>
-            SEGUIMIENTO
-
+        <button onclick="mostrarVista('Seguimiento')">
+            Seguimiento
         </button>
 
-
-        <button
-            id="btnReportes"
-            class="nav-btn"
-            onclick="mostrarVista('reportes')">
-
-            <span>📑</span>
-            REPORTES
-
+        <button onclick="mostrarVista('Reportes')">
+            Reportes
         </button>
 
-    </nav>
+    </div>
 
 </div>
 
@@ -1075,7 +772,7 @@ tbody tr:hover{
 <script>
 
 /* =====================================================
-   GOOGLE SHEETS
+   CONFIGURACIÓN GOOGLE SHEETS
 ===================================================== */
 
 const URL_CSV =
@@ -1083,42 +780,63 @@ const URL_CSV =
 
 
 let datos = [];
+let datosFiltrados = [];
+let tipoUsuario = "";
 
 
 /* =====================================================
-   ACCESO INICIAL
+   CAMBIAR PANTALLAS
 ===================================================== */
 
-function mostrarLoginCliente(){
+function ocultarTodo() {
 
-    document.getElementById("loginInicio").style.display="none";
+    document.getElementById("inicio").style.display = "none";
 
-    document.getElementById("loginCliente").style.display="flex";
+    document.getElementById("loginCliente").style.display = "none";
 
-    document.getElementById("loginEmpresa").style.display="none";
+    document.getElementById("loginEmpresa").style.display = "none";
 
+    document.getElementById("sistema").style.display = "none";
 }
 
 
-function mostrarLoginEmpresa(){
+function mostrarLoginCliente() {
 
-    document.getElementById("loginInicio").style.display="none";
+    ocultarTodo();
 
-    document.getElementById("loginCliente").style.display="none";
+    document.getElementById("loginCliente").style.display = "flex";
 
-    document.getElementById("loginEmpresa").style.display="flex";
-
+    document.getElementById("usuarioCliente").focus();
 }
 
 
-function volverInicio(){
+function mostrarLoginEmpresa() {
 
-    document.getElementById("loginCliente").style.display="none";
+    ocultarTodo();
 
-    document.getElementById("loginEmpresa").style.display="none";
+    document.getElementById("loginEmpresa").style.display = "flex";
 
-    document.getElementById("loginInicio").style.display="flex";
+    document.getElementById("usuarioEmpresa").focus();
+}
 
+
+function volverInicio() {
+
+    ocultarTodo();
+
+    document.getElementById("inicio").style.display = "flex";
+
+    document.getElementById("mensajeErrorCliente").style.display = "none";
+
+    document.getElementById("mensajeErrorEmpresa").style.display = "none";
+
+    document.getElementById("usuarioCliente").value = "";
+
+    document.getElementById("passwordCliente").value = "";
+
+    document.getElementById("usuarioEmpresa").value = "";
+
+    document.getElementById("passwordEmpresa").value = "";
 }
 
 
@@ -1126,7 +844,7 @@ function volverInicio(){
    LOGIN CLIENTE
 ===================================================== */
 
-function validarCliente(){
+function validarCliente() {
 
     const usuario =
         document.getElementById("usuarioCliente").value.trim();
@@ -1134,52 +852,26 @@ function validarCliente(){
     const password =
         document.getElementById("passwordCliente").value;
 
-    const error =
-        document.getElementById("mensajeErrorCliente");
-
-
     /*
-       CREDENCIALES PROVISIONALES CLIENTE
+       CREDENCIALES PROVISIONALES
     */
 
-    if(
+    if (
         usuario === "PRUEBA" &&
         password === "prueba123"
-    ){
+    ) {
 
-        error.style.display="none";
+        tipoUsuario = "cliente";
 
-        document.getElementById("loginCliente").style.display="none";
+        entrarSistema();
 
-        document.getElementById("sistema").style.display="block";
+    } else {
 
-        document.getElementById("tipoUsuario").textContent="Cliente";
-
-
-        /* CLIENTE SOLO VE SEGUIMIENTO */
-
-        document.getElementById("dashboard").style.display="none";
-
-        document.getElementById("reportes").style.display="none";
-
-        document.getElementById("seguimiento").style.display="block";
-
-        document.getElementById("btnDashboard").style.display="none";
-
-        document.getElementById("btnReportes").style.display="none";
-
-        document.getElementById("btnSeguimiento").style.display="block";
-
-        document.getElementById("btnSeguimiento").classList.add("activo");
+        document.getElementById(
+            "mensajeErrorCliente"
+        ).style.display = "block";
 
     }
-
-    else{
-
-        error.style.display="block";
-
-    }
-
 }
 
 
@@ -1187,7 +879,7 @@ function validarCliente(){
    LOGIN EMPRESA
 ===================================================== */
 
-function validarEmpresa(){
+function validarEmpresa() {
 
     const usuario =
         document.getElementById("usuarioEmpresa").value.trim();
@@ -1195,58 +887,58 @@ function validarEmpresa(){
     const password =
         document.getElementById("passwordEmpresa").value;
 
-    const error =
-        document.getElementById("mensajeErrorEmpresa");
-
-
     /*
-       CREDENCIALES PROVISIONALES EMPRESA
-
-       Usuario: EMPRESA
-       Contraseña: empresa123
+       CREDENCIALES PROVISIONALES
     */
 
-    if(
+    if (
         usuario === "EMPRESA" &&
         password === "empresa123"
-    ){
+    ) {
 
-        error.style.display="none";
+        tipoUsuario = "empresa";
 
-        document.getElementById("loginEmpresa").style.display="none";
+        entrarSistema();
 
-        document.getElementById("sistema").style.display="block";
+    } else {
 
-        document.getElementById("tipoUsuario").textContent="Empresa";
-
-
-        /* EMPRESA VE TODO */
-
-        document.getElementById("dashboard").style.display="block";
-
-        document.getElementById("seguimiento").style.display="none";
-
-        document.getElementById("reportes").style.display="none";
-
-        document.getElementById("btnDashboard").style.display="block";
-
-        document.getElementById("btnSeguimiento").style.display="block";
-
-        document.getElementById("btnReportes").style.display="block";
-
-
-        mostrarVista("dashboard");
-
-        cargarDatos();
+        document.getElementById(
+            "mensajeErrorEmpresa"
+        ).style.display = "block";
 
     }
+}
 
-    else{
 
-        error.style.display="block";
+/* =====================================================
+   ENTRAR AL SISTEMA
+===================================================== */
+
+function entrarSistema() {
+
+    ocultarTodo();
+
+    document.getElementById("sistema").style.display = "block";
+
+    cargarDatos();
+
+    /*
+       CLIENTE:
+       solo puede ver Seguimiento
+
+       EMPRESA:
+       puede ver todo
+    */
+
+    if (tipoUsuario === "cliente") {
+
+        mostrarVista("Seguimiento");
+
+    } else {
+
+        mostrarVista("Dashboard");
 
     }
-
 }
 
 
@@ -1254,70 +946,53 @@ function validarEmpresa(){
    CERRAR SESIÓN
 ===================================================== */
 
-function cerrarSesion(){
+function cerrarSesion() {
 
-    location.reload();
+    tipoUsuario = "";
 
+    datos = [];
+
+    datosFiltrados = [];
+
+    volverInicio();
 }
 
 
 /* =====================================================
-   NAVEGACIÓN
+   MOSTRAR VISTA
 ===================================================== */
 
-function mostrarVista(vista){
+function mostrarVista(vista) {
 
-    document
-        .querySelectorAll(".vista")
-        .forEach(v => {
+    document.querySelectorAll(".vista").forEach(
+        elemento => {
+            elemento.classList.remove("activa");
+        }
+    );
 
-            v.classList.remove("activa");
-
-            v.style.display="none";
-
-        });
-
-
-    document
-        .getElementById(vista)
-        .style.display="block";
-
-
-    document
-        .querySelectorAll(".nav-btn")
-        .forEach(btn => {
-
-            btn.classList.remove("activo");
-
-        });
-
-
-    if(vista==="dashboard"){
+    if (vista === "Dashboard") {
 
         document
-            .getElementById("btnDashboard")
-            .classList.add("activo");
+            .getElementById("vistaDashboard")
+            .classList.add("activa");
 
     }
 
-
-    if(vista==="seguimiento"){
+    if (vista === "Seguimiento") {
 
         document
-            .getElementById("btnSeguimiento")
-            .classList.add("activo");
+            .getElementById("vistaSeguimiento")
+            .classList.add("activa");
 
     }
 
-
-    if(vista==="reportes"){
+    if (vista === "Reportes") {
 
         document
-            .getElementById("btnReportes")
-            .classList.add("activo");
+            .getElementById("vistaReportes")
+            .classList.add("activa");
 
     }
-
 }
 
 
@@ -1325,119 +1000,150 @@ function mostrarVista(vista){
    CARGAR GOOGLE SHEETS
 ===================================================== */
 
-async function cargarDatos(){
+async function cargarDatos() {
 
-    try{
+    try {
 
-        const respuesta =
-            await fetch(URL_CSV);
+        const respuesta = await fetch(URL_CSV);
 
-        const texto =
-            await respuesta.text();
+        const texto = await respuesta.text();
 
-        datos =
-            parseCSV(texto);
+        datos = parseCSV(texto);
+
+        datosFiltrados = [...datos];
 
         llenarFiltros();
 
-        aplicarFiltros();
+        mostrarTabla();
+
+        actualizarKPI();
+
+    } catch (error) {
+
+        console.error("Error cargando datos:", error);
 
     }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
 }
 
 
 /* =====================================================
-   CSV
+   PARSER CSV
 ===================================================== */
 
-function parseCSV(texto){
+function parseCSV(texto) {
 
-    const filas =
-        texto.trim().split("\n");
+    const lineas =
+        texto.trim().split(/\r?\n/);
 
-    return filas.map(fila => {
+    if (lineas.length === 0) {
+        return [];
+    }
 
-        return fila
-            .split(",")
-            .map(valor =>
-                valor.replace(/^"|"$/g,"")
-            );
+    const encabezados =
+        lineas[0].split(",").map(
+            x => x.trim().replace(/^"|"$/g, "")
+        );
 
-    });
+    const resultado = [];
 
+    for (let i = 1; i < lineas.length; i++) {
+
+        if (!lineas[i].trim()) {
+            continue;
+        }
+
+        const valores =
+            lineas[i].split(",");
+
+        const objeto = {};
+
+        encabezados.forEach(
+            (encabezado, indice) => {
+
+                objeto[encabezado] =
+                    valores[indice]
+                    ? valores[indice]
+                        .trim()
+                        .replace(/^"|"$/g, "")
+                    : "";
+
+            }
+        );
+
+        resultado.push(objeto);
+    }
+
+    return resultado;
 }
 
 
 /* =====================================================
-   FILTROS
+   FILTRO DE ESTADO
 ===================================================== */
 
-function llenarFiltros(){
+function llenarFiltros() {
 
-    const proveedor =
-        document.getElementById("filtroProveedor");
-
-    const cliente =
-        document.getElementById("filtroCliente");
-
-    const estado =
+    const select =
         document.getElementById("filtroEstado");
 
+    select.innerHTML =
+        '<option value="">Todos los estados</option>';
 
-    const proveedores =
-        [...new Set(datos.slice(1)
-            .map(f => f[21])
-            .filter(Boolean))];
+    if (datos.length === 0) {
+        return;
+    }
 
+    const posiblesEstados = [];
 
-    const clientes =
-        [...new Set(datos.slice(1)
-            .map(f => f[19])
-            .filter(Boolean))];
+    Object.keys(datos[0]).forEach(
+        columna => {
 
+            const nombre =
+                columna.toLowerCase();
 
-    const estados =
-        [...new Set(datos.slice(1)
-            .map(f => f[9])
-            .filter(Boolean))];
+            if (
+                nombre.includes("estado") ||
+                nombre.includes("status")
+            ) {
 
+                datos.forEach(
+                    fila => {
 
-    proveedores.forEach(valor => {
+                        if (
+                            fila[columna] &&
+                            !posiblesEstados.includes(
+                                fila[columna]
+                            )
+                        ) {
 
-        proveedor.innerHTML +=
-            `<option value="${valor}">
-                ${valor}
-             </option>`;
+                            posiblesEstados.push(
+                                fila[columna]
+                            );
 
-    });
+                        }
 
+                    }
+                );
 
-    clientes.forEach(valor => {
+            }
 
-        cliente.innerHTML +=
-            `<option value="${valor}">
-                ${valor}
-             </option>`;
+        }
+    );
 
-    });
+    posiblesEstados.forEach(
+        estado => {
 
+            const option =
+                document.createElement("option");
 
-    estados.forEach(valor => {
+            option.value = estado;
 
-        estado.innerHTML +=
-            `<option value="${valor}">
-                ${valor}
-             </option>`;
+            option.textContent = estado;
 
-    });
+            select.appendChild(option);
 
+        }
+    );
 }
 
 
@@ -1445,163 +1151,237 @@ function llenarFiltros(){
    APLICAR FILTROS
 ===================================================== */
 
-function aplicarFiltros(){
-
-    const proveedor =
-        document.getElementById("filtroProveedor").value;
-
-    const cliente =
-        document.getElementById("filtroCliente").value;
+function aplicarFiltros() {
 
     const estado =
-        document.getElementById("filtroEstado").value;
+        document.getElementById(
+            "filtroEstado"
+        ).value.toLowerCase();
 
+    const texto =
+        document.getElementById(
+            "filtroTexto"
+        ).value.toLowerCase();
 
-    const filas =
-        datos.slice(1).filter(fila => {
+    datosFiltrados =
+        datos.filter(
+            fila => {
 
-            return (
+                const contenido =
+                    Object.values(fila)
+                    .join(" ")
+                    .toLowerCase();
 
-                (!proveedor || fila[21] === proveedor) &&
+                let coincideEstado = true;
 
-                (!cliente || fila[19] === cliente) &&
+                if (estado) {
 
-                (!estado || fila[9] === estado)
+                    coincideEstado =
+                        contenido.includes(estado);
 
-            );
+                }
 
-        });
+                const coincideTexto =
+                    !texto ||
+                    contenido.includes(texto);
 
+                return (
+                    coincideEstado &&
+                    coincideTexto
+                );
 
-    mostrarTabla(filas);
-
-    actualizarKPI(filas);
-
-}
-
-
-/* =====================================================
-   TABLA
-===================================================== */
-
-function mostrarTabla(filas){
-
-    const tabla =
-        document.getElementById("tablaDatos");
-
-    tabla.innerHTML="";
-
-
-    filas.forEach(fila => {
-
-        const tr =
-            document.createElement("tr");
-
-
-        const columnas = [
-
-            fila[0],
-            fila[1],
-            fila[2],
-            fila[3],
-            fila[4],
-            fila[5],
-            fila[9],
-            fila[10],
-            fila[19],
-            fila[21],
-            fila[24]
-
-        ];
-
-
-        columnas.forEach(valor => {
-
-            const td =
-                document.createElement("td");
-
-            td.textContent =
-                valor || "";
-
-            tr.appendChild(td);
-
-        });
-
-
-        tabla.appendChild(tr);
-
-    });
-
-}
-
-
-/* =====================================================
-   KPI
-===================================================== */
-
-function actualizarKPI(filas){
-
-    document.getElementById(
-        "totalDocumentos"
-    ).textContent =
-        filas.length;
-
-
-    const importe =
-        filas.reduce(
-
-            (total,fila) =>
-                total +
-                (parseFloat(fila[5]) || 0),
-
-            0
-
-        );
-
-
-    document.getElementById(
-        "totalImporte"
-    ).textContent =
-        "S/ " +
-        importe.toLocaleString(
-            "es-PE",
-            {
-                minimumFractionDigits:2
             }
         );
 
+    mostrarTabla();
 
-    const proveedores =
-        new Set(
-            filas
-                .map(f => f[21])
-                .filter(Boolean)
-        );
-
-
-    const clientes =
-        new Set(
-            filas
-                .map(f => f[19])
-                .filter(Boolean)
-        );
-
-
-    document.getElementById(
-        "totalProveedores"
-    ).textContent =
-        proveedores.size;
-
-
-    document.getElementById(
-        "totalClientes"
-    ).textContent =
-        clientes.size;
-
+    actualizarKPI();
 }
+
+
+/* =====================================================
+   MOSTRAR TABLA
+===================================================== */
+
+function mostrarTabla() {
+
+    const cabecera =
+        document.getElementById(
+            "cabeceraTabla"
+        );
+
+    const cuerpo =
+        document.getElementById(
+            "cuerpoTabla"
+        );
+
+    const mensaje =
+        document.getElementById(
+            "mensajeVacio"
+        );
+
+    cabecera.innerHTML = "";
+
+    cuerpo.innerHTML = "";
+
+    if (datosFiltrados.length === 0) {
+
+        mensaje.style.display = "block";
+
+        return;
+
+    }
+
+    mensaje.style.display = "none";
+
+    const columnas =
+        Object.keys(datosFiltrados[0]);
+
+    const filaCabecera =
+        document.createElement("tr");
+
+    columnas.forEach(
+        columna => {
+
+            const th =
+                document.createElement("th");
+
+            th.textContent = columna;
+
+            filaCabecera.appendChild(th);
+
+        }
+    );
+
+    cabecera.appendChild(filaCabecera);
+
+
+    datosFiltrados.forEach(
+        fila => {
+
+            const tr =
+                document.createElement("tr");
+
+            columnas.forEach(
+                columna => {
+
+                    const td =
+                        document.createElement("td");
+
+                    td.textContent =
+                        fila[columna] || "";
+
+                    tr.appendChild(td);
+
+                }
+            );
+
+            cuerpo.appendChild(tr);
+
+        }
+    );
+}
+
+
+/* =====================================================
+   ACTUALIZAR KPI
+===================================================== */
+
+function actualizarKPI() {
+
+    const total =
+        datosFiltrados.length;
+
+    let entregados = 0;
+    let transito = 0;
+    let pendientes = 0;
+
+
+    datosFiltrados.forEach(
+        fila => {
+
+            const contenido =
+                Object.values(fila)
+                .join(" ")
+                .toLowerCase();
+
+            if (
+                contenido.includes("entregado") ||
+                contenido.includes("entregada")
+            ) {
+
+                entregados++;
+
+            } else if (
+                contenido.includes("tránsito") ||
+                contenido.includes("transito") ||
+                contenido.includes("en ruta")
+            ) {
+
+                transito++;
+
+            } else {
+
+                pendientes++;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "kpiTotal"
+    ).textContent = total;
+
+    document.getElementById(
+        "kpiEntregados"
+    ).textContent = entregados;
+
+    document.getElementById(
+        "kpiTransito"
+    ).textContent = transito;
+
+    document.getElementById(
+        "kpiPendientes"
+    ).textContent = pendientes;
+}
+
+
+/* =====================================================
+   ENTER PARA INICIAR SESIÓN
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter" &&
+            document.getElementById(
+                "loginCliente"
+            ).style.display === "flex"
+        ) {
+
+            validarCliente();
+
+        }
+
+        if (
+            event.key === "Enter" &&
+            document.getElementById(
+                "loginEmpresa"
+            ).style.display === "flex"
+        ) {
+
+            validarEmpresa();
+
+        }
+
+    }
+);
 
 </script>
 
 </body>
 </html>
-```
