@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,6 +25,18 @@ body{
 }
 
 /* =========================
+   LOGO
+========================= */
+
+.logo-imagen{
+    width:120px;
+    height:120px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto 20px auto;
+}
+
+/* =========================
    PANTALLA DE INICIO
 ========================= */
 
@@ -39,37 +52,32 @@ body{
 .inicio-card{
     background:white;
     width:100%;
-    max-width:500px;
+    max-width:520px;
     padding:45px 35px;
-    border-radius:20px;
+    border-radius:24px;
     text-align:center;
     box-shadow:0 20px 50px rgba(0,0,0,.20);
-}
-
-.logo{
-    width:90px;
-    height:90px;
-    margin:auto;
-    margin-bottom:20px;
-    border-radius:18px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#eff6ff;
-    color:#2563eb;
-    font-size:42px;
-    font-weight:bold;
 }
 
 .inicio-card h1{
     margin:0;
     color:#0f3b82;
     font-size:28px;
+    letter-spacing:.5px;
 }
 
 .inicio-card p{
     color:#64748b;
     margin:10px 0 30px;
+}
+
+.frase{
+    margin-top:28px;
+    font-family:Georgia, "Times New Roman", serif;
+    font-size:16px;
+    font-style:italic;
+    color:#475569;
+    line-height:1.5;
 }
 
 .botones-acceso{
@@ -101,34 +109,51 @@ body{
 
 .btn-acceso:hover{
     transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(0,0,0,.12);
 }
 
 /* =========================
-   LOGIN CLIENTE
+   LOGIN
 ========================= */
 
-#loginCliente{
+.login-pantalla{
     display:none;
     min-height:100vh;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#0f3b82,#2563eb);
+    background:linear-gradient(135deg,#0f3b82,#2563eb,#38bdf8);
     padding:20px;
 }
 
 .login-card{
     background:white;
     width:100%;
-    max-width:400px;
-    padding:40px 30px;
-    border-radius:20px;
-    box-shadow:0 20px 50px rgba(0,0,0,.20);
+    max-width:410px;
+    padding:38px 32px;
+    border-radius:22px;
+    box-shadow:0 20px 50px rgba(0,0,0,.22);
+}
+
+.login-logo{
+    width:100px;
+    height:100px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto 18px;
 }
 
 .login-card h2{
     text-align:center;
     color:#0f3b82;
-    margin-top:0;
+    margin:0;
+    font-size:25px;
+}
+
+.login-subtitulo{
+    text-align:center;
+    color:#64748b;
+    font-size:14px;
+    margin:8px 0 25px;
 }
 
 .campo{
@@ -140,6 +165,7 @@ body{
     font-size:14px;
     font-weight:bold;
     margin-bottom:7px;
+    color:#334155;
 }
 
 .campo input{
@@ -166,6 +192,12 @@ body{
     font-weight:bold;
     cursor:pointer;
     font-size:15px;
+    transition:.2s;
+}
+
+.btn-ingresar:hover{
+    background:#1d4ed8;
+    transform:translateY(-1px);
 }
 
 .btn-volver{
@@ -179,6 +211,10 @@ body{
     cursor:pointer;
 }
 
+.btn-volver:hover{
+    background:#e2e8f0;
+}
+
 .error{
     display:none;
     background:#fee2e2;
@@ -188,6 +224,16 @@ body{
     margin-bottom:15px;
     text-align:center;
     font-size:14px;
+}
+
+.frase-login{
+    margin-top:25px;
+    text-align:center;
+    font-family:Georgia, "Times New Roman", serif;
+    font-style:italic;
+    font-size:15px;
+    color:#64748b;
+    line-height:1.5;
 }
 
 /* =========================
@@ -415,7 +461,7 @@ tbody tr:hover{
 }
 
 /* =========================
-   NAVEGACIÓN INFERIOR
+   NAVEGACIÓN
 ========================= */
 
 .nav-inferior{
@@ -504,6 +550,10 @@ tbody tr:hover{
         padding:35px 20px;
     }
 
+    .login-card{
+        padding:32px 22px;
+    }
+
 }
 
 </style>
@@ -520,9 +570,11 @@ tbody tr:hover{
 
     <div class="inicio-card">
 
-        <div class="logo">
-            M
-        </div>
+        <img
+            src="https://i.ibb.co/p68prbH9/imagestr.png"
+            alt="Logo de la empresa"
+            class="logo-imagen"
+        >
 
         <h1>MI SISTEMA</h1>
 
@@ -530,16 +582,23 @@ tbody tr:hover{
 
         <div class="botones-acceso">
 
-            <button class="btn-acceso btn-cliente"
-                    onclick="mostrarLoginCliente()">
+            <button
+                class="btn-acceso btn-cliente"
+                onclick="mostrarLoginCliente()">
                 👤 SOY CLIENTE
             </button>
 
-            <button class="btn-acceso btn-empresa"
-                    onclick="entrarEmpresa()">
+            <button
+                class="btn-acceso btn-empresa"
+                onclick="mostrarLoginEmpresa()">
                 🏢 EMPRESA
             </button>
 
+        </div>
+
+        <div class="frase">
+            “Movemos tu carga con seguridad,
+            confianza y compromiso.”
         </div>
 
     </div>
@@ -551,13 +610,23 @@ tbody tr:hover{
      LOGIN CLIENTE
 ===================================================== -->
 
-<div id="loginCliente">
+<div id="loginCliente" class="login-pantalla">
 
     <div class="login-card">
 
+        <img
+            src="https://i.ibb.co/p68prbH9/imagestr.png"
+            alt="Logo de la empresa"
+            class="login-logo"
+        >
+
         <h2>Acceso Cliente</h2>
 
-        <div id="mensajeError" class="error">
+        <div class="login-subtitulo">
+            Ingrese sus credenciales para continuar
+        </div>
+
+        <div id="mensajeErrorCliente" class="error">
             Usuario o contraseña incorrectos
         </div>
 
@@ -567,8 +636,9 @@ tbody tr:hover{
 
             <input
                 type="text"
-                id="usuario"
+                id="usuarioCliente"
                 placeholder="Ingrese su usuario"
+                autocomplete="username"
             >
 
         </div>
@@ -579,8 +649,9 @@ tbody tr:hover{
 
             <input
                 type="password"
-                id="password"
+                id="passwordCliente"
                 placeholder="Ingrese su contraseña"
+                autocomplete="current-password"
             >
 
         </div>
@@ -597,6 +668,83 @@ tbody tr:hover{
             ← Volver
         </button>
 
+        <div class="frase-login">
+            “Movemos tu carga con seguridad,
+            confianza y compromiso.”
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     LOGIN EMPRESA
+===================================================== -->
+
+<div id="loginEmpresa" class="login-pantalla">
+
+    <div class="login-card">
+
+        <img
+            src="https://i.ibb.co/p68prbH9/imagestr.png"
+            alt="Logo de la empresa"
+            class="login-logo"
+        >
+
+        <h2>Acceso Empresa</h2>
+
+        <div class="login-subtitulo">
+            Ingrese sus credenciales para continuar
+        </div>
+
+        <div id="mensajeErrorEmpresa" class="error">
+            Usuario o contraseña incorrectos
+        </div>
+
+        <div class="campo">
+
+            <label>Usuario</label>
+
+            <input
+                type="text"
+                id="usuarioEmpresa"
+                placeholder="Ingrese su usuario"
+                autocomplete="username"
+            >
+
+        </div>
+
+        <div class="campo">
+
+            <label>Contraseña</label>
+
+            <input
+                type="password"
+                id="passwordEmpresa"
+                placeholder="Ingrese su contraseña"
+                autocomplete="current-password"
+            >
+
+        </div>
+
+        <button
+            class="btn-ingresar"
+            onclick="validarEmpresa()">
+            INGRESAR
+        </button>
+
+        <button
+            class="btn-volver"
+            onclick="volverInicio()">
+            ← Volver
+        </button>
+
+        <div class="frase-login">
+            “Movemos tu carga con seguridad,
+            confianza y compromiso.”
+        </div>
+
     </div>
 
 </div>
@@ -607,8 +755,6 @@ tbody tr:hover{
 ===================================================== -->
 
 <div id="sistema">
-
-    <!-- HEADER -->
 
     <header class="header">
 
@@ -633,14 +779,10 @@ tbody tr:hover{
     </header>
 
 
-    <!-- CONTENIDO -->
-
     <main class="contenido">
 
 
-        <!-- ==========================================
-             DASHBOARD
-        =========================================== -->
+        <!-- DASHBOARD -->
 
         <section
             id="dashboard"
@@ -657,16 +799,15 @@ tbody tr:hover{
             </div>
 
 
-            <!-- FILTROS -->
-
             <div class="filtros">
 
                 <div class="filtro">
 
                     <label>PROVEEDOR</label>
 
-                    <select id="filtroProveedor"
-                            onchange="aplicarFiltros()">
+                    <select
+                        id="filtroProveedor"
+                        onchange="aplicarFiltros()">
 
                         <option value="">
                             Todos
@@ -681,8 +822,9 @@ tbody tr:hover{
 
                     <label>CLIENTE</label>
 
-                    <select id="filtroCliente"
-                            onchange="aplicarFiltros()">
+                    <select
+                        id="filtroCliente"
+                        onchange="aplicarFiltros()">
 
                         <option value="">
                             Todos
@@ -697,8 +839,9 @@ tbody tr:hover{
 
                     <label>ESTADO</label>
 
-                    <select id="filtroEstado"
-                            onchange="aplicarFiltros()">
+                    <select
+                        id="filtroEstado"
+                        onchange="aplicarFiltros()">
 
                         <option value="">
                             Todos
@@ -710,8 +853,6 @@ tbody tr:hover{
 
             </div>
 
-
-            <!-- KPI -->
 
             <div class="kpis">
 
@@ -777,8 +918,6 @@ tbody tr:hover{
             </div>
 
 
-            <!-- TABLA -->
-
             <div class="tabla-contenedor">
 
                 <table>
@@ -803,9 +942,7 @@ tbody tr:hover{
 
                     </thead>
 
-                    <tbody id="tablaDatos">
-
-                    </tbody>
+                    <tbody id="tablaDatos"></tbody>
 
                 </table>
 
@@ -814,9 +951,7 @@ tbody tr:hover{
         </section>
 
 
-        <!-- ==========================================
-             SEGUIMIENTO
-        =========================================== -->
+        <!-- SEGUIMIENTO -->
 
         <section
             id="seguimiento"
@@ -857,9 +992,7 @@ tbody tr:hover{
         </section>
 
 
-        <!-- ==========================================
-             REPORTES
-        =========================================== -->
+        <!-- REPORTES -->
 
         <section
             id="reportes"
@@ -895,13 +1028,10 @@ tbody tr:hover{
 
         </section>
 
-
     </main>
 
 
-    <!-- ==========================================
-         NAVEGACIÓN INFERIOR
-    =========================================== -->
+    <!-- NAVEGACIÓN -->
 
     <nav class="nav-inferior">
 
@@ -956,7 +1086,7 @@ let datos = [];
 
 
 /* =====================================================
-   ACCESO
+   ACCESO INICIAL
 ===================================================== */
 
 function mostrarLoginCliente(){
@@ -965,6 +1095,19 @@ function mostrarLoginCliente(){
 
     document.getElementById("loginCliente").style.display="flex";
 
+    document.getElementById("loginEmpresa").style.display="none";
+
+}
+
+
+function mostrarLoginEmpresa(){
+
+    document.getElementById("loginInicio").style.display="none";
+
+    document.getElementById("loginCliente").style.display="none";
+
+    document.getElementById("loginEmpresa").style.display="flex";
+
 }
 
 
@@ -972,35 +1115,31 @@ function volverInicio(){
 
     document.getElementById("loginCliente").style.display="none";
 
+    document.getElementById("loginEmpresa").style.display="none";
+
     document.getElementById("loginInicio").style.display="flex";
 
 }
 
 
-function entrarEmpresa(){
-
-    document.getElementById("loginInicio").style.display="none";
-
-    document.getElementById("sistema").style.display="block";
-
-    document.getElementById("tipoUsuario").textContent="Empresa";
-
-    cargarDatos();
-
-}
-
+/* =====================================================
+   LOGIN CLIENTE
+===================================================== */
 
 function validarCliente(){
 
     const usuario =
-        document.getElementById("usuario").value;
+        document.getElementById("usuarioCliente").value.trim();
 
     const password =
-        document.getElementById("password").value;
+        document.getElementById("passwordCliente").value;
+
+    const error =
+        document.getElementById("mensajeErrorCliente");
 
 
     /*
-       CREDENCIALES TEMPORALES
+       CREDENCIALES PROVISIONALES CLIENTE
     */
 
     if(
@@ -1008,15 +1147,16 @@ function validarCliente(){
         password === "prueba123"
     ){
 
+        error.style.display="none";
+
         document.getElementById("loginCliente").style.display="none";
 
         document.getElementById("sistema").style.display="block";
 
         document.getElementById("tipoUsuario").textContent="Cliente";
 
-        /*
-           OCULTAMOS DASHBOARD Y REPORTES
-        */
+
+        /* CLIENTE SOLO VE SEGUIMIENTO */
 
         document.getElementById("dashboard").style.display="none";
 
@@ -1028,13 +1168,82 @@ function validarCliente(){
 
         document.getElementById("btnReportes").style.display="none";
 
+        document.getElementById("btnSeguimiento").style.display="block";
+
         document.getElementById("btnSeguimiento").classList.add("activo");
 
     }
 
     else{
 
-        document.getElementById("mensajeError").style.display="block";
+        error.style.display="block";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGIN EMPRESA
+===================================================== */
+
+function validarEmpresa(){
+
+    const usuario =
+        document.getElementById("usuarioEmpresa").value.trim();
+
+    const password =
+        document.getElementById("passwordEmpresa").value;
+
+    const error =
+        document.getElementById("mensajeErrorEmpresa");
+
+
+    /*
+       CREDENCIALES PROVISIONALES EMPRESA
+
+       Usuario: EMPRESA
+       Contraseña: empresa123
+    */
+
+    if(
+        usuario === "EMPRESA" &&
+        password === "empresa123"
+    ){
+
+        error.style.display="none";
+
+        document.getElementById("loginEmpresa").style.display="none";
+
+        document.getElementById("sistema").style.display="block";
+
+        document.getElementById("tipoUsuario").textContent="Empresa";
+
+
+        /* EMPRESA VE TODO */
+
+        document.getElementById("dashboard").style.display="block";
+
+        document.getElementById("seguimiento").style.display="none";
+
+        document.getElementById("reportes").style.display="none";
+
+        document.getElementById("btnDashboard").style.display="block";
+
+        document.getElementById("btnSeguimiento").style.display="block";
+
+        document.getElementById("btnReportes").style.display="block";
+
+
+        mostrarVista("dashboard");
+
+        cargarDatos();
+
+    }
+
+    else{
+
+        error.style.display="block";
 
     }
 
@@ -1061,8 +1270,11 @@ function mostrarVista(vista){
     document
         .querySelectorAll(".vista")
         .forEach(v => {
+
             v.classList.remove("activa");
+
             v.style.display="none";
+
         });
 
 
@@ -1074,7 +1286,9 @@ function mostrarVista(vista){
     document
         .querySelectorAll(".nav-btn")
         .forEach(btn => {
+
             btn.classList.remove("activo");
+
         });
 
 
@@ -1335,10 +1549,13 @@ function actualizarKPI(filas){
 
     const importe =
         filas.reduce(
+
             (total,fila) =>
                 total +
                 (parseFloat(fila[5]) || 0),
+
             0
+
         );
 
 
@@ -1387,3 +1604,4 @@ function actualizarKPI(filas){
 
 </body>
 </html>
+```
