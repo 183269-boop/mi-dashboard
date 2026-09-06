@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Dashboard</title>
+
+    <title>Dashboard de Movimientos</title>
 
     <style>
         body {
@@ -14,7 +15,7 @@
         }
 
         .contenedor {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: auto;
         }
 
@@ -23,24 +24,65 @@
         }
 
         .tarjetas {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
-            flex-wrap: wrap;
+            margin-bottom: 35px;
         }
 
         .tarjeta {
             background: white;
             padding: 25px;
             border-radius: 12px;
-            flex: 1;
-            min-width: 200px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
+        .titulo {
+            color: #666;
+            font-size: 15px;
+        }
+
         .numero {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: bold;
             margin-top: 10px;
+        }
+
+        .tabla-contenedor {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        th {
+            background: #f1f3f5;
+        }
+
+        .cargando {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        @media (max-width: 800px) {
+            .tarjetas {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
@@ -49,33 +91,229 @@
 
 <div class="contenedor">
 
-    <h1>Mi Dashboard</h1>
+    <h1>Dashboard de Movimientos</h1>
 
     <div class="tarjetas">
 
         <div class="tarjeta">
-            <div>Documentos</div>
-            <div class="numero">10</div>
+            <div class="titulo">Documentos</div>
+            <div class="numero" id="documentos">-</div>
         </div>
 
         <div class="tarjeta">
-            <div>Importe total</div>
-            <div class="numero">S/ 20,840.40</div>
+            <div class="titulo">Importe total</div>
+            <div class="numero" id="importe">-</div>
         </div>
 
         <div class="tarjeta">
-            <div>Ingresados</div>
-            <div class="numero">4</div>
+            <div class="titulo">Ingresados</div>
+            <div class="numero" id="ingresados">-</div>
         </div>
 
         <div class="tarjeta">
-            <div>Modificados</div>
-            <div class="numero">6</div>
+            <div class="titulo">Modificados</div>
+            <div class="numero" id="modificados">-</div>
         </div>
 
     </div>
 
+    <div class="tabla-contenedor">
+
+        <h2>Movimientos</h2>
+
+        <div id="cargando" class="cargando">
+            Cargando datos...
+        </div>
+
+        <table id="tabla" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Documento</th>
+                    <th>Movimiento</th>
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                    <th>Moneda</th>
+                    <th>Importe</th>
+                    <th>Estado</th>
+                    <th>Almacén</th>
+                    <th>Cliente</th>
+                    <th>Proveedor</th>
+                    <th>Factura</th>
+                </tr>
+            </thead>
+
+            <tbody id="tablaDatos"></tbody>
+
+        </table>
+
+    </div>
+
 </div>
+
+
+<script>
+
+    // URL DE TU GOOGLE SHEET
+    const URL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vTvCxW6aqUhuTwDtYT3ebPkuq36laDtDzYwlV3AuOiO3JlLl5VHpMfeNUNAxCM0sDjbRuLzlX3DROVW/pub?gid=0&single=true&output=csv";
+
+
+    async function cargarDatos() {
+
+        try {
+
+            const respuesta = await fetch(URL);
+
+            const texto = await respuesta.text();
+
+            const filas = texto
+                .trim()
+                .split("\n")
+                .map(fila => fila.split(","));
+
+
+            // Primera fila = encabezados
+            const encabezados = filas[0];
+
+            // Resto = datos
+            const datos = filas.slice(1);
+
+
+            console.log("Datos cargados:", datos);
+
+
+            // =========================
+            // TARJETAS
+            // =========================
+
+            document.getElementById("documentos").textContent =
+                datos.length;
+
+
+            // Buscar columnas por posición
+            // nimporte = columna 6
+            // estado = columna 10
+
+            let importeTotal = 0;
+            let ingresados = 0;
+            let modificados = 0;
+
+
+            datos.forEach(fila => {
+
+                // Importe
+                let importe =
+                    parseFloat(
+                        fila[5]?.replace(/"/g, "").replace(",", ".")
+                    );
+
+                if (!isNaN(importe)) {
+                    importeTotal += importe;
+                }
+
+
+                // Estado
+                let estado =
+                    fila[9]?.replace(/"/g, "").trim();
+
+
+                if (estado === "Ingresado") {
+                    ingresados++;
+                }
+
+                if (estado === "Modificado") {
+                    modificados++;
+                }
+
+            });
+
+
+            document.getElementById("importe").textContent =
+                "S/ " +
+                importeTotal.toLocaleString("es-PE", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+
+
+            document.getElementById("ingresados").textContent =
+                ingresados;
+
+
+            document.getElementById("modificados").textContent =
+                modificados;
+
+
+            // =========================
+            // TABLA
+            // =========================
+
+            const cuerpo =
+                document.getElementById("tablaDatos");
+
+
+            datos.forEach(fila => {
+
+                const tr =
+                    document.createElement("tr");
+
+
+                // Columnas que mostraremos
+                const columnas = [
+                    0,  // cnum_doc
+                    1,  // ccod_movimiento
+                    2,  // ctip_movimiento
+                    3,  // dfecha_doc
+                    4,  // cmoneda
+                    5,  // nimporte
+                    9,  // estado
+                    10, // ccod_almacen
+                    19, // cnom_cliente_v
+                    21, // cnom_proveedor_c
+                    24  // factura
+                ];
+
+
+                columnas.forEach(indice => {
+
+                    const td =
+                        document.createElement("td");
+
+                    td.textContent =
+                        fila[indice]?.replace(/"/g, "") || "";
+
+                    tr.appendChild(td);
+
+                });
+
+
+                cuerpo.appendChild(tr);
+
+            });
+
+
+            document.getElementById("cargando").style.display =
+                "none";
+
+            document.getElementById("tabla").style.display =
+                "table";
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            document.getElementById("cargando").textContent =
+                "Error al cargar los datos.";
+
+        }
+
+    }
+
+
+    cargarDatos();
+
+</script>
 
 </body>
 </html>
