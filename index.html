@@ -1,15 +1,16 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dashboard de Movimientos</title>
+<title>Mi Sistema</title>
 
 <style>
+
+/* =========================
+   CONFIGURACIÓN GENERAL
+========================= */
 
 *{
     box-sizing:border-box;
@@ -18,1169 +19,1371 @@
 body{
     margin:0;
     font-family:Arial, Helvetica, sans-serif;
-    background:#f4f6f9;
-    color:#1f2937;
+    background:#f1f5f9;
+    color:#1e293b;
 }
 
-.contenedor{
+/* =========================
+   PANTALLA DE INICIO
+========================= */
+
+#loginInicio{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f3b82,#2563eb,#38bdf8);
+    padding:20px;
+}
+
+.inicio-card{
+    background:white;
+    width:100%;
+    max-width:500px;
+    padding:45px 35px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.20);
+}
+
+.logo{
+    width:90px;
+    height:90px;
+    margin:auto;
+    margin-bottom:20px;
+    border-radius:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#eff6ff;
+    color:#2563eb;
+    font-size:42px;
+    font-weight:bold;
+}
+
+.inicio-card h1{
+    margin:0;
+    color:#0f3b82;
+    font-size:28px;
+}
+
+.inicio-card p{
+    color:#64748b;
+    margin:10px 0 30px;
+}
+
+.botones-acceso{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.btn-acceso{
+    border:none;
+    padding:18px 10px;
+    border-radius:12px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn-cliente{
+    background:#eff6ff;
+    color:#1d4ed8;
+    border:2px solid #2563eb;
+}
+
+.btn-empresa{
+    background:#2563eb;
+    color:white;
+}
+
+.btn-acceso:hover{
+    transform:translateY(-2px);
+}
+
+/* =========================
+   LOGIN CLIENTE
+========================= */
+
+#loginCliente{
+    display:none;
+    min-height:100vh;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f3b82,#2563eb);
+    padding:20px;
+}
+
+.login-card{
+    background:white;
+    width:100%;
+    max-width:400px;
+    padding:40px 30px;
+    border-radius:20px;
+    box-shadow:0 20px 50px rgba(0,0,0,.20);
+}
+
+.login-card h2{
+    text-align:center;
+    color:#0f3b82;
+    margin-top:0;
+}
+
+.campo{
+    margin-bottom:18px;
+}
+
+.campo label{
+    display:block;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.campo input{
+    width:100%;
+    padding:13px;
+    border:1px solid #cbd5e1;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+}
+
+.campo input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px #dbeafe;
+}
+
+.btn-ingresar{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:9px;
+    background:#2563eb;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.btn-volver{
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border:none;
+    background:#f1f5f9;
+    color:#475569;
+    border-radius:9px;
+    cursor:pointer;
+}
+
+.error{
+    display:none;
+    background:#fee2e2;
+    color:#b91c1c;
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:15px;
+    text-align:center;
+    font-size:14px;
+}
+
+/* =========================
+   SISTEMA
+========================= */
+
+#sistema{
+    display:none;
+    min-height:100vh;
+}
+
+/* HEADER */
+
+.header{
+    background:#0f3b82;
+    color:white;
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+.header-titulo{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.header-derecha{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.usuario{
+    font-size:13px;
+    opacity:.9;
+}
+
+.btn-salir{
+    border:1px solid rgba(255,255,255,.4);
+    background:transparent;
+    color:white;
+    padding:8px 14px;
+    border-radius:7px;
+    cursor:pointer;
+}
+
+/* CONTENIDO */
+
+.contenido{
+    padding:25px;
     max-width:1400px;
     margin:auto;
-    padding:35px;
 }
 
-h1{
-    margin-bottom:8px;
+.vista{
+    display:none;
 }
 
-.subtitulo{
-    color:#6b7280;
-    margin-bottom:30px;
+.vista.activa{
+    display:block;
 }
 
+.titulo-pagina{
+    margin-bottom:20px;
+}
+
+.titulo-pagina h2{
+    margin:0;
+    color:#0f3b82;
+}
+
+.titulo-pagina p{
+    margin-top:5px;
+    color:#64748b;
+}
 
 /* =========================
    FILTROS
 ========================= */
 
 .filtros{
-
     background:white;
-
-    padding:22px;
-
-    border-radius:12px;
-
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
-
-    margin-bottom:25px;
-
-}
-
-.filtros-titulo{
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    margin-bottom:18px;
-
-}
-
-.filtros-grid{
-
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
     display:grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap:20px;
-
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:20px;
 }
 
 .filtro label{
-
     display:block;
-
-    font-size:13px;
-
+    font-size:12px;
     font-weight:bold;
-
-    color:#4b5563;
-
-    margin-bottom:7px;
-
+    color:#475569;
+    margin-bottom:6px;
 }
 
 .filtro select{
-
     width:100%;
-
     padding:11px;
-
-    border:1px solid #d1d5db;
-
+    border:1px solid #93c5fd;
     border-radius:8px;
-
-    background:white;
-
+    background:#eff6ff;
+    color:#1d4ed8;
     font-size:14px;
-
     cursor:pointer;
-
-}
-
-.filtro select:focus{
-
-    outline:none;
-
-    border-color:#2563eb;
-
-}
-
-
-/* BOTON LIMPIAR */
-
-.btn-limpiar{
-
-    margin-top:18px;
-
-    padding:10px 18px;
-
-    border:none;
-
-    border-radius:8px;
-
-    background:#e5e7eb;
-
-    color:#374151;
-
     font-weight:bold;
-
-    cursor:pointer;
-
 }
-
-.btn-limpiar:hover{
-
-    background:#d1d5db;
-
-}
-
 
 /* =========================
-   TARJETAS
+   KPI
 ========================= */
 
-.tarjetas{
-
+.kpis{
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:18px;
-
-    margin-bottom:25px;
-
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
 }
 
-.tarjeta{
-
+.kpi{
     background:white;
-
-    padding:22px;
-
-    border-radius:12px;
-
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
-
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    border-left:5px solid #2563eb;
 }
 
-.titulo{
-
-    color:#6b7280;
-
+.kpi-titulo{
+    color:#64748b;
     font-size:13px;
-
 }
 
-.numero{
-
-    font-size:28px;
-
-    font-weight:bold;
-
+.kpi-valor{
     margin-top:8px;
-
+    font-size:25px;
+    font-weight:bold;
+    color:#0f3b82;
 }
-
 
 /* =========================
    TABLA
 ========================= */
 
 .tabla-contenedor{
-
     background:white;
-
-    padding:22px;
-
-    border-radius:12px;
-
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
-
-    overflow-x:auto;
-
-}
-
-.tabla-contenedor h2{
-
-    margin-top:0;
-
+    border-radius:14px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    overflow:auto;
 }
 
 table{
-
     width:100%;
-
     border-collapse:collapse;
-
-    font-size:13px;
-
+    min-width:900px;
 }
 
-th,
-td{
-
-    padding:12px;
-
-    border-bottom:1px solid #e5e7eb;
-
-    text-align:left;
-
-    white-space:nowrap;
-
+thead{
+    background:#0f3b82;
+    color:white;
 }
 
 th{
-
-    background:#f3f4f6;
-
-    font-weight:bold;
-
+    padding:12px;
+    text-align:left;
+    font-size:12px;
 }
 
-tr:hover td{
-
-    background:#f9fafb;
-
+td{
+    padding:11px;
+    border-bottom:1px solid #e2e8f0;
+    font-size:13px;
 }
 
-.cargando{
+tbody tr:hover{
+    background:#f8fafc;
+}
 
+/* =========================
+   SEGUIMIENTO
+========================= */
+
+.seguimiento-card{
+    background:white;
+    min-height:450px;
+    border-radius:14px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    display:flex;
+    justify-content:center;
+    align-items:center;
     text-align:center;
-
-    padding:25px;
-
-    color:#6b7280;
-
 }
 
+.seguimiento-icon{
+    font-size:60px;
+}
+
+.seguimiento-card h3{
+    color:#0f3b82;
+}
+
+/* =========================
+   REPORTES
+========================= */
+
+.reportes-card{
+    background:white;
+    padding:30px;
+    border-radius:14px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+
+.btn-reporte{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* =========================
+   NAVEGACIÓN INFERIOR
+========================= */
+
+.nav-inferior{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:65px;
+    background:white;
+    border-top:1px solid #e2e8f0;
+    display:flex;
+    justify-content:center;
+    box-shadow:0 -3px 12px rgba(0,0,0,.08);
+    z-index:100;
+}
+
+.nav-btn{
+    width:180px;
+    border:none;
+    background:white;
+    color:#64748b;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.nav-btn span{
+    display:block;
+    font-size:20px;
+    margin-bottom:3px;
+}
+
+.nav-btn.activo{
+    color:#2563eb;
+    border-top:3px solid #2563eb;
+}
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media(max-width:900px){
+@media(max-width:800px){
 
-    .filtros-grid{
-
+    .botones-acceso{
         grid-template-columns:1fr;
-
     }
 
-    .tarjetas{
+    .filtros{
+        grid-template-columns:1fr;
+    }
 
-        grid-template-columns:
-            repeat(2,1fr);
+    .kpis{
+        grid-template-columns:repeat(2,1fr);
+    }
 
+    .header{
+        padding:0 15px;
+    }
+
+    .usuario{
+        display:none;
+    }
+
+    .contenido{
+        padding:15px;
+        padding-bottom:85px;
+    }
+
+    .header-titulo{
+        font-size:17px;
+    }
+
+    .nav-btn{
+        width:33.33%;
+    }
+
+}
+
+@media(max-width:450px){
+
+    .kpis{
+        grid-template-columns:1fr;
+    }
+
+    .inicio-card{
+        padding:35px 20px;
     }
 
 }
 
 </style>
-
 </head>
-
 
 <body>
 
 
-<div class="contenedor">
+<!-- =====================================================
+     PANTALLA INICIAL
+===================================================== -->
 
+<div id="loginInicio">
 
-    <h1>Dashboard de Movimientos</h1>
+    <div class="inicio-card">
 
-    <div class="subtitulo">
-        Control y seguimiento de documentos
-    </div>
-
-
-    <!-- =========================
-         FILTROS
-    ========================= -->
-
-    <div class="filtros">
-
-        <div class="filtros-titulo">
-            Filtros
+        <div class="logo">
+            M
         </div>
 
+        <h1>MI SISTEMA</h1>
 
-        <div class="filtros-grid">
+        <p>Seleccione el tipo de acceso</p>
 
+        <div class="botones-acceso">
 
-            <!-- PROVEEDOR -->
+            <button class="btn-acceso btn-cliente"
+                    onclick="mostrarLoginCliente()">
+                👤 SOY CLIENTE
+            </button>
 
-            <div class="filtro">
-
-                <label>
-                    PROVEEDOR
-                </label>
-
-                <select
-                    id="filtroProveedor"
-                    onchange="aplicarFiltros()">
-
-                    <option value="">
-                        Todos los proveedores
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- CLIENTE -->
-
-            <div class="filtro">
-
-                <label>
-                    CLIENTE
-                </label>
-
-                <select
-                    id="filtroCliente"
-                    onchange="aplicarFiltros()">
-
-                    <option value="">
-                        Todos los clientes
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- ESTADO -->
-
-            <div class="filtro">
-
-                <label>
-                    ESTADO
-                </label>
-
-                <select
-                    id="filtroEstado"
-                    onchange="aplicarFiltros()">
-
-                    <option value="">
-                        Todos los estados
-                    </option>
-
-                </select>
-
-            </div>
-
+            <button class="btn-acceso btn-empresa"
+                    onclick="entrarEmpresa()">
+                🏢 EMPRESA
+            </button>
 
         </div>
-
-
-        <button
-            class="btn-limpiar"
-            onclick="limpiarFiltros()">
-
-            Limpiar filtros
-
-        </button>
 
     </div>
-
-
-
-    <!-- =========================
-         TARJETAS
-    ========================= -->
-
-    <div class="tarjetas">
-
-
-        <div class="tarjeta">
-
-            <div class="titulo">
-                Documentos
-            </div>
-
-            <div
-                class="numero"
-                id="documentos">
-
-                -
-
-            </div>
-
-        </div>
-
-
-        <div class="tarjeta">
-
-            <div class="titulo">
-                Importe total
-            </div>
-
-            <div
-                class="numero"
-                id="importe">
-
-                -
-
-            </div>
-
-        </div>
-
-
-        <div class="tarjeta">
-
-            <div class="titulo">
-                Ingresados
-            </div>
-
-            <div
-                class="numero"
-                id="ingresados">
-
-                -
-
-            </div>
-
-        </div>
-
-
-        <div class="tarjeta">
-
-            <div class="titulo">
-                Modificados
-            </div>
-
-            <div
-                class="numero"
-                id="modificados">
-
-                -
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- =========================
-         TABLA
-    ========================= -->
-
-    <div class="tabla-contenedor">
-
-
-        <h2>
-            Movimientos
-        </h2>
-
-
-        <div
-            id="cargando"
-            class="cargando">
-
-            Cargando datos...
-
-        </div>
-
-
-        <table
-            id="tabla"
-            style="display:none;">
-
-
-            <thead>
-
-                <tr>
-
-                    <th>Documento</th>
-
-                    <th>Movimiento</th>
-
-                    <th>Tipo</th>
-
-                    <th>Fecha</th>
-
-                    <th>Moneda</th>
-
-                    <th>Importe</th>
-
-                    <th>Estado</th>
-
-                    <th>Almacén</th>
-
-                    <th>Cliente</th>
-
-                    <th>Proveedor</th>
-
-                    <th>Factura</th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody
-                id="tablaDatos">
-            </tbody>
-
-
-        </table>
-
-    </div>
-
 
 </div>
 
 
+<!-- =====================================================
+     LOGIN CLIENTE
+===================================================== -->
+
+<div id="loginCliente">
+
+    <div class="login-card">
+
+        <h2>Acceso Cliente</h2>
+
+        <div id="mensajeError" class="error">
+            Usuario o contraseña incorrectos
+        </div>
+
+        <div class="campo">
+
+            <label>Usuario</label>
+
+            <input
+                type="text"
+                id="usuario"
+                placeholder="Ingrese su usuario"
+            >
+
+        </div>
+
+        <div class="campo">
+
+            <label>Contraseña</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Ingrese su contraseña"
+            >
+
+        </div>
+
+        <button
+            class="btn-ingresar"
+            onclick="validarCliente()">
+            INGRESAR
+        </button>
+
+        <button
+            class="btn-volver"
+            onclick="volverInicio()">
+            ← Volver
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SISTEMA
+===================================================== -->
+
+<div id="sistema">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="header-titulo">
+            MI SISTEMA
+        </div>
+
+        <div class="header-derecha">
+
+            <span id="tipoUsuario" class="usuario">
+                Empresa
+            </span>
+
+            <button
+                class="btn-salir"
+                onclick="cerrarSesion()">
+                Salir
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTENIDO -->
+
+    <main class="contenido">
+
+
+        <!-- ==========================================
+             DASHBOARD
+        =========================================== -->
+
+        <section
+            id="dashboard"
+            class="vista activa">
+
+            <div class="titulo-pagina">
+
+                <h2>Dashboard</h2>
+
+                <p>
+                    Resumen general de documentos y movimientos
+                </p>
+
+            </div>
+
+
+            <!-- FILTROS -->
+
+            <div class="filtros">
+
+                <div class="filtro">
+
+                    <label>PROVEEDOR</label>
+
+                    <select id="filtroProveedor"
+                            onchange="aplicarFiltros()">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filtro">
+
+                    <label>CLIENTE</label>
+
+                    <select id="filtroCliente"
+                            onchange="aplicarFiltros()">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filtro">
+
+                    <label>ESTADO</label>
+
+                    <select id="filtroEstado"
+                            onchange="aplicarFiltros()">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- KPI -->
+
+            <div class="kpis">
+
+                <div class="kpi">
+
+                    <div class="kpi-titulo">
+                        DOCUMENTOS
+                    </div>
+
+                    <div
+                        id="totalDocumentos"
+                        class="kpi-valor">
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="kpi">
+
+                    <div class="kpi-titulo">
+                        IMPORTE TOTAL
+                    </div>
+
+                    <div
+                        id="totalImporte"
+                        class="kpi-valor">
+                        S/ 0.00
+                    </div>
+
+                </div>
+
+
+                <div class="kpi">
+
+                    <div class="kpi-titulo">
+                        PROVEEDORES
+                    </div>
+
+                    <div
+                        id="totalProveedores"
+                        class="kpi-valor">
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="kpi">
+
+                    <div class="kpi-titulo">
+                        CLIENTES
+                    </div>
+
+                    <div
+                        id="totalClientes"
+                        class="kpi-valor">
+                        0
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TABLA -->
+
+            <div class="tabla-contenedor">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Documento</th>
+                            <th>Movimiento</th>
+                            <th>Tipo</th>
+                            <th>Fecha</th>
+                            <th>Moneda</th>
+                            <th>Importe</th>
+                            <th>Estado</th>
+                            <th>Almacén</th>
+                            <th>Cliente</th>
+                            <th>Proveedor</th>
+                            <th>Factura</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tablaDatos">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             SEGUIMIENTO
+        =========================================== -->
+
+        <section
+            id="seguimiento"
+            class="vista">
+
+            <div class="titulo-pagina">
+
+                <h2>Seguimiento</h2>
+
+                <p>
+                    Seguimiento de vehículos en tiempo real
+                </p>
+
+            </div>
+
+
+            <div class="seguimiento-card">
+
+                <div>
+
+                    <div class="seguimiento-icon">
+                        🚛
+                    </div>
+
+                    <h3>
+                        SEGUIMIENTO NAVITEL
+                    </h3>
+
+                    <p>
+                        Aquí integraremos el mapa y
+                        seguimiento de vehículos.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             REPORTES
+        =========================================== -->
+
+        <section
+            id="reportes"
+            class="vista">
+
+            <div class="titulo-pagina">
+
+                <h2>Reportes</h2>
+
+                <p>
+                    Generación y consulta de reportes
+                </p>
+
+            </div>
+
+
+            <div class="reportes-card">
+
+                <h3>
+                    Reportes
+                </h3>
+
+                <p>
+                    Esta sección será desarrollada
+                    posteriormente.
+                </p>
+
+                <button class="btn-reporte">
+                    Generar reporte
+                </button>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- ==========================================
+         NAVEGACIÓN INFERIOR
+    =========================================== -->
+
+    <nav class="nav-inferior">
+
+        <button
+            id="btnDashboard"
+            class="nav-btn activo"
+            onclick="mostrarVista('dashboard')">
+
+            <span>📊</span>
+            DASHBOARD
+
+        </button>
+
+
+        <button
+            id="btnSeguimiento"
+            class="nav-btn"
+            onclick="mostrarVista('seguimiento')">
+
+            <span>🚛</span>
+            SEGUIMIENTO
+
+        </button>
+
+
+        <button
+            id="btnReportes"
+            class="nav-btn"
+            onclick="mostrarVista('reportes')">
+
+            <span>📑</span>
+            REPORTES
+
+        </button>
+
+    </nav>
+
+</div>
+
 
 <script>
 
-
-/* =========================
+/* =====================================================
    GOOGLE SHEETS
-========================= */
+===================================================== */
 
-const URL =
+const URL_CSV =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vTvCxW6aqUhuTwDtYT3ebPkuq36laDtDzYwlV3AuOiO3JlLl5VHpMfeNUNAxCM0sDjbRuLzlX3DROVW/pub?gid=0&single=true&output=csv";
 
 
-/* =========================
-   VARIABLES
-========================= */
-
-let datosOriginales = [];
-
-let datosFiltrados = [];
+let datos = [];
 
 
-/* =========================
-   LIMPIAR VALOR
-========================= */
+/* =====================================================
+   ACCESO
+===================================================== */
 
-function limpiar(valor){
+function mostrarLoginCliente(){
 
-    if(
-        valor === undefined ||
-        valor === null
-    ){
+    document.getElementById("loginInicio").style.display="none";
 
-        return "";
-
-    }
-
-    return valor
-        .replace(/^"|"$/g,"")
-        .trim();
+    document.getElementById("loginCliente").style.display="flex";
 
 }
 
 
-/* =========================
-   CARGAR DATOS
-========================= */
+function volverInicio(){
+
+    document.getElementById("loginCliente").style.display="none";
+
+    document.getElementById("loginInicio").style.display="flex";
+
+}
+
+
+function entrarEmpresa(){
+
+    document.getElementById("loginInicio").style.display="none";
+
+    document.getElementById("sistema").style.display="block";
+
+    document.getElementById("tipoUsuario").textContent="Empresa";
+
+    cargarDatos();
+
+}
+
+
+function validarCliente(){
+
+    const usuario =
+        document.getElementById("usuario").value;
+
+    const password =
+        document.getElementById("password").value;
+
+
+    /*
+       CREDENCIALES TEMPORALES
+    */
+
+    if(
+        usuario === "PRUEBA" &&
+        password === "prueba123"
+    ){
+
+        document.getElementById("loginCliente").style.display="none";
+
+        document.getElementById("sistema").style.display="block";
+
+        document.getElementById("tipoUsuario").textContent="Cliente";
+
+        /*
+           OCULTAMOS DASHBOARD Y REPORTES
+        */
+
+        document.getElementById("dashboard").style.display="none";
+
+        document.getElementById("reportes").style.display="none";
+
+        document.getElementById("seguimiento").style.display="block";
+
+        document.getElementById("btnDashboard").style.display="none";
+
+        document.getElementById("btnReportes").style.display="none";
+
+        document.getElementById("btnSeguimiento").classList.add("activo");
+
+    }
+
+    else{
+
+        document.getElementById("mensajeError").style.display="block";
+
+    }
+
+}
+
+
+/* =====================================================
+   CERRAR SESIÓN
+===================================================== */
+
+function cerrarSesion(){
+
+    location.reload();
+
+}
+
+
+/* =====================================================
+   NAVEGACIÓN
+===================================================== */
+
+function mostrarVista(vista){
+
+    document
+        .querySelectorAll(".vista")
+        .forEach(v => {
+            v.classList.remove("activa");
+            v.style.display="none";
+        });
+
+
+    document
+        .getElementById(vista)
+        .style.display="block";
+
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(btn => {
+            btn.classList.remove("activo");
+        });
+
+
+    if(vista==="dashboard"){
+
+        document
+            .getElementById("btnDashboard")
+            .classList.add("activo");
+
+    }
+
+
+    if(vista==="seguimiento"){
+
+        document
+            .getElementById("btnSeguimiento")
+            .classList.add("activo");
+
+    }
+
+
+    if(vista==="reportes"){
+
+        document
+            .getElementById("btnReportes")
+            .classList.add("activo");
+
+    }
+
+}
+
+
+/* =====================================================
+   CARGAR GOOGLE SHEETS
+===================================================== */
 
 async function cargarDatos(){
 
     try{
 
         const respuesta =
-            await fetch(
-                URL + "&t=" + Date.now()
-            );
-
+            await fetch(URL_CSV);
 
         const texto =
             await respuesta.text();
 
+        datos =
+            parseCSV(texto);
 
-        const filas =
-            texto
-            .trim()
-            .split(/\r?\n/)
-            .map(fila => {
+        llenarFiltros();
 
-                return fila
-                .split(
-                    /,(?=(?:(?:[^"]*"){2})*[^"]*$)/
-                )
-                .map(limpiar);
-
-            });
-
-
-        /*
-         * Primera fila = encabezados
-         * Resto = información
-         */
-
-        datosOriginales =
-            filas.slice(1);
-
-
-        datosFiltrados =
-            [...datosOriginales];
-
-
-        /* Crear opciones de filtros */
-
-        crearFiltros();
-
-
-        /* Mostrar dashboard */
-
-        actualizarDashboard();
-
-
-        document.getElementById(
-            "cargando"
-        ).style.display = "none";
-
-
-        document.getElementById(
-            "tabla"
-        ).style.display = "table";
-
+        aplicarFiltros();
 
     }
+
     catch(error){
 
         console.error(error);
 
-        document.getElementById(
-            "cargando"
-        ).textContent =
-            "Error al cargar los datos.";
-
     }
 
 }
 
 
-/* =========================
-   CREAR FILTROS
-========================= */
+/* =====================================================
+   CSV
+===================================================== */
 
-function crearFiltros(){
+function parseCSV(texto){
 
+    const filas =
+        texto.trim().split("\n");
 
-    /*
-     * PROVEEDOR
-     *
-     * cnom_proveedor_c
-     * = columna 21
-     */
+    return filas.map(fila => {
 
-    const proveedores =
-        [
-            ...new Set(
-
-                datosOriginales
-
-                .map(fila => fila[21])
-
-                .filter(valor =>
-                    valor !== ""
-                )
-
-            )
-        ].sort();
-
-
-    /*
-     * CLIENTE
-     *
-     * cnom_cliente_v
-     * = columna 19
-     */
-
-    const clientes =
-        [
-            ...new Set(
-
-                datosOriginales
-
-                .map(fila => fila[19])
-
-                .filter(valor =>
-                    valor !== ""
-                )
-
-            )
-        ].sort();
-
-
-    /*
-     * ESTADO
-     *
-     * estado
-     * = columna 9
-     */
-
-    const estados =
-        [
-            ...new Set(
-
-                datosOriginales
-
-                .map(fila => fila[9])
-
-                .filter(valor =>
-                    valor !== ""
-                )
-
-            )
-        ].sort();
-
-
-
-    /* =========================
-       PROVEEDORES
-    ========================= */
-
-    const selectProveedor =
-        document.getElementById(
-            "filtroProveedor"
-        );
-
-
-    proveedores.forEach(proveedor => {
-
-        const opcion =
-            document.createElement("option");
-
-
-        opcion.value =
-            proveedor;
-
-
-        opcion.textContent =
-            proveedor;
-
-
-        selectProveedor.appendChild(
-            opcion
-        );
-
-    });
-
-
-
-    /* =========================
-       CLIENTES
-    ========================= */
-
-    const selectCliente =
-        document.getElementById(
-            "filtroCliente"
-        );
-
-
-    clientes.forEach(cliente => {
-
-        const opcion =
-            document.createElement("option");
-
-
-        opcion.value =
-            cliente;
-
-
-        opcion.textContent =
-            cliente;
-
-
-        selectCliente.appendChild(
-            opcion
-        );
-
-    });
-
-
-
-    /* =========================
-       ESTADOS
-    ========================= */
-
-    const selectEstado =
-        document.getElementById(
-            "filtroEstado"
-        );
-
-
-    estados.forEach(estado => {
-
-        const opcion =
-            document.createElement("option");
-
-
-        opcion.value =
-            estado;
-
-
-        opcion.textContent =
-            estado;
-
-
-        selectEstado.appendChild(
-            opcion
-        );
+        return fila
+            .split(",")
+            .map(valor =>
+                valor.replace(/^"|"$/g,"")
+            );
 
     });
 
 }
 
 
-/* =========================
+/* =====================================================
+   FILTROS
+===================================================== */
+
+function llenarFiltros(){
+
+    const proveedor =
+        document.getElementById("filtroProveedor");
+
+    const cliente =
+        document.getElementById("filtroCliente");
+
+    const estado =
+        document.getElementById("filtroEstado");
+
+
+    const proveedores =
+        [...new Set(datos.slice(1)
+            .map(f => f[21])
+            .filter(Boolean))];
+
+
+    const clientes =
+        [...new Set(datos.slice(1)
+            .map(f => f[19])
+            .filter(Boolean))];
+
+
+    const estados =
+        [...new Set(datos.slice(1)
+            .map(f => f[9])
+            .filter(Boolean))];
+
+
+    proveedores.forEach(valor => {
+
+        proveedor.innerHTML +=
+            `<option value="${valor}">
+                ${valor}
+             </option>`;
+
+    });
+
+
+    clientes.forEach(valor => {
+
+        cliente.innerHTML +=
+            `<option value="${valor}">
+                ${valor}
+             </option>`;
+
+    });
+
+
+    estados.forEach(valor => {
+
+        estado.innerHTML +=
+            `<option value="${valor}">
+                ${valor}
+             </option>`;
+
+    });
+
+}
+
+
+/* =====================================================
    APLICAR FILTROS
-========================= */
+===================================================== */
 
 function aplicarFiltros(){
 
-
     const proveedor =
-        document.getElementById(
-            "filtroProveedor"
-        ).value;
-
+        document.getElementById("filtroProveedor").value;
 
     const cliente =
-        document.getElementById(
-            "filtroCliente"
-        ).value;
-
+        document.getElementById("filtroCliente").value;
 
     const estado =
-        document.getElementById(
-            "filtroEstado"
-        ).value;
+        document.getElementById("filtroEstado").value;
 
 
+    const filas =
+        datos.slice(1).filter(fila => {
 
-    datosFiltrados =
-        datosOriginales.filter(fila => {
+            return (
 
+                (!proveedor || fila[21] === proveedor) &&
 
-            /*
-             * PROVEEDOR
-             * columna 21
-             */
+                (!cliente || fila[19] === cliente) &&
 
-            if(
-                proveedor &&
-                fila[21] !== proveedor
-            ){
+                (!estado || fila[9] === estado)
 
-                return false;
-
-            }
-
-
-            /*
-             * CLIENTE
-             * columna 19
-             */
-
-            if(
-                cliente &&
-                fila[19] !== cliente
-            ){
-
-                return false;
-
-            }
-
-
-            /*
-             * ESTADO
-             * columna 9
-             */
-
-            if(
-                estado &&
-                fila[9] !== estado
-            ){
-
-                return false;
-
-            }
-
-
-            return true;
+            );
 
         });
 
 
-    actualizarDashboard();
+    mostrarTabla(filas);
+
+    actualizarKPI(filas);
 
 }
 
 
-/* =========================
-   ACTUALIZAR DASHBOARD
-========================= */
+/* =====================================================
+   TABLA
+===================================================== */
 
-function actualizarDashboard(){
+function mostrarTabla(filas){
 
+    const tabla =
+        document.getElementById("tablaDatos");
 
-    let importeTotal = 0;
-
-    let ingresados = 0;
-
-    let modificados = 0;
+    tabla.innerHTML="";
 
 
-    datosFiltrados.forEach(fila => {
-
-
-        /*
-         * IMPORTE
-         * columna 5
-         */
-
-        const importe =
-            parseFloat(
-
-                (fila[5] || "")
-                .replace(",", ".")
-
-            );
-
-
-        if(!isNaN(importe)){
-
-            importeTotal += importe;
-
-        }
-
-
-        /*
-         * ESTADO
-         * columna 9
-         */
-
-        if(
-            fila[9] === "Ingresado"
-        ){
-
-            ingresados++;
-
-        }
-
-
-        if(
-            fila[9] === "Modificado"
-        ){
-
-            modificados++;
-
-        }
-
-    });
-
-
-    /* DOCUMENTOS */
-
-    document.getElementById(
-        "documentos"
-    ).textContent =
-        datosFiltrados.length;
-
-
-    /* IMPORTE */
-
-    document.getElementById(
-        "importe"
-    ).textContent =
-
-        "S/ " +
-
-        importeTotal.toLocaleString(
-            "es-PE",
-            {
-                minimumFractionDigits:2,
-                maximumFractionDigits:2
-            }
-        );
-
-
-    /* INGRESADOS */
-
-    document.getElementById(
-        "ingresados"
-    ).textContent =
-        ingresados;
-
-
-    /* MODIFICADOS */
-
-    document.getElementById(
-        "modificados"
-    ).textContent =
-        modificados;
-
-
-    /* ACTUALIZAR TABLA */
-
-    mostrarTabla();
-
-}
-
-
-/* =========================
-   MOSTRAR TABLA
-========================= */
-
-function mostrarTabla(){
-
-
-    const cuerpo =
-        document.getElementById(
-            "tablaDatos"
-        );
-
-
-    cuerpo.innerHTML = "";
-
-
-    datosFiltrados.forEach(fila => {
-
+    filas.forEach(fila => {
 
         const tr =
             document.createElement("tr");
 
 
-        /*
-         * Columnas de la tabla
-         */
-
         const columnas = [
 
-            0,  // cnum_doc
-            1,  // ccod_movimiento
-            2,  // ctip_movimiento
-            3,  // dfecha_doc
-            4,  // cmoneda
-            5,  // nimporte
-            9,  // estado
-            10, // ccod_almacen
-            19, // cnom_cliente_v
-            21, // cnom_proveedor_c
-            24  // factura
+            fila[0],
+            fila[1],
+            fila[2],
+            fila[3],
+            fila[4],
+            fila[5],
+            fila[9],
+            fila[10],
+            fila[19],
+            fila[21],
+            fila[24]
 
         ];
 
 
-        columnas.forEach(indice => {
-
+        columnas.forEach(valor => {
 
             const td =
                 document.createElement("td");
 
-
-            let valor =
-                fila[indice] || "";
-
-
-            /*
-             * Formato importe
-             */
-
-            if(indice === 5){
-
-                const numero =
-                    parseFloat(
-                        valor.replace(",",".")
-                    );
-
-
-                if(!isNaN(numero)){
-
-                    valor =
-                        numero.toLocaleString(
-                            "es-PE",
-                            {
-                                minimumFractionDigits:2,
-                                maximumFractionDigits:2
-                            }
-                        );
-
-                }
-
-            }
-
-
             td.textContent =
-                valor;
-
+                valor || "";
 
             tr.appendChild(td);
 
         });
 
 
-        cuerpo.appendChild(tr);
+        tabla.appendChild(tr);
 
     });
 
 }
 
 
-/* =========================
-   LIMPIAR FILTROS
-========================= */
+/* =====================================================
+   KPI
+===================================================== */
 
-function limpiarFiltros(){
+function actualizarKPI(filas){
+
+    document.getElementById(
+        "totalDocumentos"
+    ).textContent =
+        filas.length;
+
+
+    const importe =
+        filas.reduce(
+            (total,fila) =>
+                total +
+                (parseFloat(fila[5]) || 0),
+            0
+        );
 
 
     document.getElementById(
-        "filtroProveedor"
-    ).value = "";
+        "totalImporte"
+    ).textContent =
+        "S/ " +
+        importe.toLocaleString(
+            "es-PE",
+            {
+                minimumFractionDigits:2
+            }
+        );
+
+
+    const proveedores =
+        new Set(
+            filas
+                .map(f => f[21])
+                .filter(Boolean)
+        );
+
+
+    const clientes =
+        new Set(
+            filas
+                .map(f => f[19])
+                .filter(Boolean)
+        );
 
 
     document.getElementById(
-        "filtroCliente"
-    ).value = "";
+        "totalProveedores"
+    ).textContent =
+        proveedores.size;
 
 
     document.getElementById(
-        "filtroEstado"
-    ).value = "";
-
-
-    datosFiltrados =
-        [...datosOriginales];
-
-
-    actualizarDashboard();
+        "totalClientes"
+    ).textContent =
+        clientes.size;
 
 }
-
-
-/* =========================
-   INICIAR
-========================= */
-
-cargarDatos();
-
 
 </script>
 
 </body>
-
 </html>
-```
